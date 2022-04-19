@@ -19,22 +19,17 @@ pipeline {
         }
         stage("Dockerize") {
             steps {
-                sh "/usr/local/bin/docker build -t studentapp ."
-            }
-        }
-        stage("Authenticate Artifact") {
-            steps {
-                sh "/usr/local/bin/gcloud auth configure-docker northamerica-northeast2-docker.pkg.dev"               
+                sh "/usr/local/bin/docker build -t chatapp1:v1 ."
             }
         }
         stage("Docker Tag") {
             steps {
-                sh "docker tag my-app northamerica-northeast2-docker.pkg.dev/homedepot-342320/gcp-artifactory/chatapp:v1"               
+                sh "docker tag chatapp1:v1 northamerica-northeast2-docker.pkg.dev/homedepot-342320/gcp-artifactory/chatapp1:v1"               
             }
         }
         stage("Docker Push") {
             steps {
-                sh "docker push northamerica-northeast2-docker.pkg.dev/homedepot-342320/gcp-artifactory"               
+                sh "docker push northamerica-northeast2-docker.pkg.dev/homedepot-342320/gcp-artifactory/chatapp1:v1"               
             }
         }
     }   
